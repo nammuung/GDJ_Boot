@@ -14,7 +14,7 @@ import com.winter.app.util.Pager;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
-@Slf4j
+
 class NoticeDAOTest {
 
 	@Autowired
@@ -30,7 +30,7 @@ class NoticeDAOTest {
 		Long totalCount =  noticeDAO.getTotalCount(pager);
 		pager.makeNum(totalCount);
 		
-		log.info("pager "+pager);
+		
 		
 		List<BoardVO> ar = noticeDAO.getList(pager);
 		assertEquals(10, ar.size());
@@ -40,7 +40,7 @@ class NoticeDAOTest {
 	//@Test
 	void addTest() throws Exception{
 		for(int i=0;i<120;i++) {
-		NotcieVO notcieVO = new NotcieVO();
+		NoticeVO notcieVO = new NoticeVO();
 		notcieVO.setBoardWriter("tester"+i);
 		notcieVO.setBoardTitle("title"+i);
 		notcieVO.setBoardContents("test Content"+i);

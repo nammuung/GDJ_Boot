@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.winter.app.board.notice.NoticeDAO">
+<mapper namespace="com.winter.app.board.qna.QnaDAO">
 
   	<sql id="search">
   		<where>
@@ -16,13 +16,13 @@
   	</sql>
 
   	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-  		SELECT COUNT(BOARDNUM) FROM NOTICE
+  		SELECT COUNT(BOARDNUM) FROM QNA
  
   		<include refid="search"></include>
   		
   	</select>
-<select id="getList" resultType="NoticeVO" parameterType="Pager">
-select * from NOTICE 
+<select id="getList" resultType="QnaVO" parameterType="Pager">
+select * from QNA 
 <include refid="search"></include>
 
 order by boardNum DESC 
@@ -32,20 +32,23 @@ LIMIT #{startIndex}, #{perPage}
 
 <select id="getDetail" parameterType="BoardVO" resultMap="getDetailResult">
   		SELECT *
-  		FROM NOTICE N
+  		FROM QNA N
   			 LEFT JOIn
-  			 NOTICEFILES NF
+  			 QNAFILES NF
   			 USING(BOARDNUM)
   		WHERE BOARDNUM=#{boardNum}
   	</select>
   	
-  	<resultMap type="NoticeVO" id="getDetailResult">
+  	<resultMap type="QnaVO" id="getDetailResult">
   		<id column="BOARDNUM" property="boardNum"/>
   		<result column="BOARDTITLE" property="boardTitle"/>
   		<result column="BOARDWRITER" property="boardWriter"/>
   		<result column="BOARDCONTENTS" property="boardContents"/>
   		<result column="BOARDDATE" property="boardDate"/>
   		<result column="BOARDHIT" property="boardHit"/>
+  		<result column="BOARDREF" property="boardRef"/>
+  		<result column="BOARDSTEP" property="boardStep"/>
+  		<result column="BOARDDEPTH" property="boardDepth"/>
   		<collection property="fileVOs" javaType="List" ofType="FileVO">
   			<id column="FILENUM" property="fileNum"/>
   			<result column="FILENAME" property="fileName"/>
@@ -55,15 +58,15 @@ LIMIT #{startIndex}, #{perPage}
 
 
   	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNum">
-  		INSERT INTO NOTICE 
-  		(BOARDWRITER, BOARDTITLE, BOARDCONTENTS, BOARDDATE, BOARDHIT)
+  		INSERT INTO QNA 
+  		(BOARDWRITER, BOARDTITLE, BOARDCONTENTS, BOARDDATE, BOARDHIT, BOARDREF, BOARDSTEP, BOARDDEPTH)
   		VALUES
-  		(#{boardWriter}, #{boardTitle}, #{boardContents}, now(), 0)
+  		(#{boardWriter}, #{boardTitle}, #{boardContents}, now(), 0,0,0,0)
   	</insert>
 
 
  	<insert id="addFile" parameterType="FileVO">
-  		INSERT INTO NOTICEFILES
+  		INSERT INTO QNAFILES
   		VALUES (null, #{boardNum}, #{fileName}, #{oriName})
   	</insert>
 

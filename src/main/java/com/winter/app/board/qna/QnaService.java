@@ -1,4 +1,4 @@
-package com.winter.app.board.notice;
+package com.winter.app.board.qna;
 
 import java.util.List;
 
@@ -7,37 +7,35 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.winter.app.board.BoardDAO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
 import com.winter.app.board.FileVO;
+import com.winter.app.board.notice.NoticeDAO;
 import com.winter.app.util.FileManager;
 import com.winter.app.util.Pager;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
-public class NoticeService implements BoardService {
+public class QnaService implements BoardService{
+
 	
 	@Autowired
-	private NoticeDAO noticeDAO;
-	@Value("${app.upload.board.notice}")
+	private QnaDAO qnaDAO;
+	@Value("${app.upload.board.qna}")
 	private String uploadPath;
 	@Autowired
 	private FileManager fileManager;
 	
+	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		pager.makeIndex();
-		pager.makeNum(noticeDAO.getTotalCount(pager));
-		
-		return noticeDAO.getList(pager);
+		pager.makeNum(qnaDAO.getTotalCount(pager));
+		return qnaDAO.getList(pager);
 	}
 
 	@Override
-	public int add(BoardVO boardVO, MultipartFile [] attach) throws Exception {
-		int result = noticeDAO.add(boardVO);
+	public int add(BoardVO boardVO, MultipartFile[] attach) throws Exception {
+		int result = qnaDAO.add(boardVO);
 		
 		for(MultipartFile multipartFile:attach) {
 			if(multipartFile.isEmpty()) {
@@ -50,18 +48,22 @@ public class NoticeService implements BoardService {
 			fileVO.setFileName(fileName);
 			fileVO.setOriName(multipartFile.getOriginalFilename());
 			
-			result = noticeDAO.addFile(fileVO);
+			result = qnaDAO.addFile(fileVO);
 		}
 		
 		return result;
 	}
-	
+
 	@Override
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeDAO.getDetail(boardVO);
+		return qnaDAO.getDetail(boardVO);
 	}
-	
-	
 
+
+
+	
+	
+	
+	
 }

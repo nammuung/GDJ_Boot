@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.util.Pager;
+
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
+@Slf4j
 class NoticeDAOTest {
 
 	@Autowired
@@ -18,7 +22,17 @@ class NoticeDAOTest {
 	
 	@Test
 	void getListTest() throws Exception{
-		List<BoardVO> ar = noticeDAO.getList();
+		Pager pager = new Pager();
+		/* pager.setPage(); */
+		pager.makeIndex();
+		
+		
+		Long totalCount =  noticeDAO.getTotalCount(pager);
+		pager.makeNum(totalCount);
+		
+		log.info("pager "+pager);
+		
+		List<BoardVO> ar = noticeDAO.getList(pager);
 		assertEquals(10, ar.size());
 	}
 	

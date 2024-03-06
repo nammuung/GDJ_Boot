@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.winter.app.util.Pager;
 
-public interface BoardDAO {
+public interface BoardService {
 
-	public Long getTotalCount(Pager pager)throws Exception;
 	
 	public List<BoardVO> getList (Pager pager) throws Exception;
 	
 	public int add(BoardVO boardVO) throws Exception;
+	
 }

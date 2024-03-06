@@ -6,6 +6,7 @@
   <typeAliases>
   <typeAlias type="com.winter.app.board.BoardVO" alias="BoardVO"/>
   <typeAlias type="com.winter.app.board.notice.NotcieVO" alias="NotcieVO"/>
+  <typeAlias type="com.winter.app.util.Pager" alias="Pager"/>
   </typeAliases>
   
   

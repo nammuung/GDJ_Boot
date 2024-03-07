@@ -60,6 +60,12 @@ public class QnaService implements BoardService{
 		return qnaDAO.getDetail(boardVO);
 	}
 
+	@Override
+	public FileVO getFileDetail(FileVO fileVO) throws Exception {
+		
+		return qnaDAO.getFileDetail(fileVO);
+	}
+
 
 
 	

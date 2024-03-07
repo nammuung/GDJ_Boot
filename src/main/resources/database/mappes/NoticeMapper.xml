@@ -68,7 +68,10 @@ LIMIT #{startIndex}, #{perPage}
   	</insert>
 
 
-	
+	<!-- 파일 다운로드  -->
+	<select id="getFileDetail" parameterType="FileVO" resultType="FileVO">
+	SELECT * FROM NOTICEFILES WHERE FILENUM=#{fileNum}
+	</select>
 
 
 

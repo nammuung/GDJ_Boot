@@ -37,6 +37,11 @@ public class QnaService implements BoardService{
 	public int add(BoardVO boardVO, MultipartFile[] attach) throws Exception {
 		int result = qnaDAO.add(boardVO);
 		
+		// REF 업데이트 / 처음에 마리아디비에서 오토인크리먼트가 인서트가 끝나고 발동하기때문에 먼저 등록하고 REF값만 업데이트해줌
+		result = qnaDAO.refUpdate(boardVO);
+		
+		
+		
 		for(MultipartFile multipartFile:attach) {
 			if(multipartFile.isEmpty()) {
 				continue;

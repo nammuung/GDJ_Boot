@@ -78,6 +78,10 @@ LIMIT #{startIndex}, #{perPage}
 
 
 
+<update id="refUpdate" parameterType="boardVO">
+UPDATE QNA SET BOARDREF=#{boardNum} WHERE BOARDNUM=#{boardNum}
+
+</update>
 
 
 

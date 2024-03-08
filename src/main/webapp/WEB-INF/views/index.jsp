@@ -46,6 +46,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">
                         <spring:message code="hello2" text="키가 없을때 나오는 메시지"></spring:message>
+                        <spring:message code="welcome" text="키가 없을때 나오는 메시지"></spring:message>
                         
                         </h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i

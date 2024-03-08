@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import com.winter.app.interceptors.LoginInterceptor;
 import com.winter.app.interceptors.TestInterceptor;
@@ -16,6 +17,10 @@ public class InterceptorConfig  implements WebMvcConfigurer{
 
 	@Autowired
 	private LoginInterceptor loginInterceptor;
+	
+	
+	@Autowired
+	private LocaleChangeInterceptor localeChangeInterceptor;
 	
 	
 	@Override  // 여러개하려면 registry 여러개 쓰면댐
@@ -31,6 +36,9 @@ public class InterceptorConfig  implements WebMvcConfigurer{
 //		registry.addInterceptor(loginInterceptor)
 //		.addPathPatterns("")
 //		.excludePathPatterns("");
+		
+		registry.addInterceptor(localeChangeInterceptor)
+		.addPathPatterns("/**");
 	}
 	
 	

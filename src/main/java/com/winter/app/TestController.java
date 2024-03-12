@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j  // 로그를 찍을수 있는 어너테이션
+@Slf4j
 public class TestController {
-	
 
 	
+	@GetMapping("/")
+	public String test() {
+		
+		return "index";
+	}
+
 }

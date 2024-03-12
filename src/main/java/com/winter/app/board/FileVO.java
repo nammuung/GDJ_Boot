@@ -8,11 +8,10 @@ import lombok.ToString;
 @Getter
 @ToString
 public class FileVO {
-
+	
 	private Long fileNum;
 	private Long boardNum;
 	private String fileName;
 	private String oriName;
-	
-	
+
 }

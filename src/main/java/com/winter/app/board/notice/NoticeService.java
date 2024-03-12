@@ -1,8 +1,8 @@
 package com.winter.app.board.notice;
 
+import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@Transactional(rollbackFor=Exception.class) // 에러가 발생했을때 Exception 처리 
+//@Transactional(rollbackFor = Exception.class)
 public class NoticeService implements BoardService {
 	
 	@Autowired
@@ -42,6 +42,8 @@ public class NoticeService implements BoardService {
 	public int add(BoardVO boardVO, MultipartFile [] attach) throws Exception {
 		int result = noticeDAO.add(boardVO);
 		
+		
+		
 		for(MultipartFile multipartFile:attach) {
 			if(multipartFile.isEmpty()) {
 				continue;
@@ -54,9 +56,11 @@ public class NoticeService implements BoardService {
 			fileVO.setOriName(multipartFile.getOriginalFilename());
 			
 			result = noticeDAO.addFile(fileVO);
-			if(result==1) {
-				throw new SqlSessionException();
+			
+			if(result==0) {
+				throw new SQLException();
 			}
+			
 		}
 		
 		return result;
@@ -67,16 +71,12 @@ public class NoticeService implements BoardService {
 		// TODO Auto-generated method stub
 		return noticeDAO.getDetail(boardVO);
 	}
-
+	
 	@Override
 	public FileVO getFileDetail(FileVO fileVO) throws Exception {
-
+		// TODO Auto-generated method stub
 		return noticeDAO.getFileDetail(fileVO);
 	}
-
-	
-	
-	
 	
 	
 

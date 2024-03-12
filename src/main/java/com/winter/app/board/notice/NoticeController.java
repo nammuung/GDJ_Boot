@@ -16,16 +16,16 @@ import com.winter.app.board.BoardVO;
 import com.winter.app.board.FileVO;
 import com.winter.app.util.Pager;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/notice/*")
 @Slf4j
 public class NoticeController {
-
+	
 	@Autowired
 	private NoticeService noticeService;
-	
 	@Value("${board.notice.name}")
 	private String name;
 	
@@ -34,11 +34,9 @@ public class NoticeController {
 		return this.name;
 	}
 	
-	
-	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model)throws Exception{
-		log.info("================================="+name);
+		log.info("========= {}=======",name);
 		List<BoardVO> ar = noticeService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
@@ -51,29 +49,29 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String add(NoticeVO notcieVO, MultipartFile [] attach)throws Exception{
-		int result =  noticeService.add(notcieVO, attach);
+	public String add(HttpSession session, NoticeVO noticeVO, MultipartFile [] attach)throws Exception{
+		
+		if(session.getAttribute("member") != null) {
+		
+			int result = noticeService.add(noticeVO, attach);
+		}
 		return "redirect:./list";
 	}
-	
 	
 	@GetMapping("detail")
 	public String getDetail(BoardVO boardVO, Model model)throws Exception{
 		boardVO = noticeService.getDetail(boardVO);
 		model.addAttribute("vo", boardVO);
 		return "board/detail";
-		
 	}
 	
-	// file download 
 	@GetMapping("fileDown")
-	public String fileDown(FileVO fileVO, Model model) throws Exception{
+	public String fileDown(FileVO fileVO, Model model)throws Exception{
 		fileVO = noticeService.getFileDetail(fileVO);
 		
 		model.addAttribute("fileVO", fileVO);
 		
 		return "fileDownView";
 	}
-	
-	
+
 }

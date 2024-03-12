@@ -7,16 +7,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardDAO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
 import com.winter.app.board.FileVO;
-import com.winter.app.board.notice.NoticeDAO;
 import com.winter.app.util.FileManager;
 import com.winter.app.util.Pager;
 
-@Service
-public class QnaService implements BoardService{
+import lombok.extern.slf4j.Slf4j;
 
+@Service
+@Slf4j
+public class QnaService implements BoardService {
 	
 	@Autowired
 	private QnaDAO qnaDAO;
@@ -25,22 +27,19 @@ public class QnaService implements BoardService{
 	@Autowired
 	private FileManager fileManager;
 	
-	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		pager.makeIndex();
 		pager.makeNum(qnaDAO.getTotalCount(pager));
+		
 		return qnaDAO.getList(pager);
 	}
 
 	@Override
-	public int add(BoardVO boardVO, MultipartFile[] attach) throws Exception {
+	public int add(BoardVO boardVO, MultipartFile [] attach) throws Exception {
 		int result = qnaDAO.add(boardVO);
-		
-		// REF 업데이트 / 처음에 마리아디비에서 오토인크리먼트가 인서트가 끝나고 발동하기때문에 먼저 등록하고 REF값만 업데이트해줌
+		//ref를 업데이트
 		result = qnaDAO.refUpdate(boardVO);
-		
-		
 		
 		for(MultipartFile multipartFile:attach) {
 			if(multipartFile.isEmpty()) {
@@ -58,23 +57,18 @@ public class QnaService implements BoardService{
 		
 		return result;
 	}
-
+	
 	@Override
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
 		return qnaDAO.getDetail(boardVO);
 	}
-
+	
 	@Override
 	public FileVO getFileDetail(FileVO fileVO) throws Exception {
-		
-		return qnaDAO.getFileDetail(fileVO);
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
 
-
-
-	
-	
-	
-	
 }

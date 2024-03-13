@@ -31,6 +31,7 @@ public class MemberService implements UserDetailsService {
 		log.info("----- 로그인 진행 ----");
 		log.info("---- {} ---- ", username);
 		System.out.println("test");
+		System.out.println("test2");
 
 		try {
 			memberVO = memberDAO.getDetail(memberVO);

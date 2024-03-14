@@ -11,14 +11,11 @@ jobs:
       contents: read
 
     steps:
-    - name: SSH 연결 설정
+    - name: Set up SSH key
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.KEY }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: 원격 서버로 파일 전송 및 실행
-        host:${{ secrets.HOST }}
-        port:${{ secrets.REMOTE_SSH_PORT }}
-        username:ubuntu
-        script:|
-        cd /home/ubuntu && echo "test" > FILENAME
+    - name: Remote SSH Command
+      run: |
+        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa ubuntu@${{ secrets.HOST }} -p ${{ secrets.REMOTE_SSH_PORT }} 'cd /home/ubuntu && echo "test" > FILENAME'

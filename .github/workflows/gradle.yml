@@ -1,0 +1,23 @@
+name: CI Test
+
+on:
+  push:
+    branches: [ "master" ]
+###########################################
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        host: ${{HOST}}
+        passwrod : ubuntu
+        username : ubuntu
+        port : ${{REMOTE_SSH_PORT}}
+        script: | 
+          echo "test"
+      

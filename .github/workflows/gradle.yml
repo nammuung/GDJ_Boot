@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        host: ${{HOST}}
+        host: ${{secrets.HOST}}
         passwrod : ubuntu
         username : ubuntu
-        port : ${{REMOTE_SSH_PORT}}
+        port : ${{secrets.REMOTE_SSH_PORT}}
         script: | 
           echo "test"
       

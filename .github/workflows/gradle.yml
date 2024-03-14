@@ -11,7 +11,7 @@ jobs:
       contents: read
 
     steps:
-    - name: SSH 연결 설정
+    - name: SSH 연결 설정4
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.KEY }}

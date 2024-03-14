@@ -3,7 +3,6 @@ name: CI Test
 on:
   push:
     branches: [ "master" ]
-###########################################
 
 jobs:
   build:
@@ -12,14 +11,11 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
+    - name: SSH 연결 설정
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        host: ${{secrets.HOST}}
-        passwrod : ubuntu
-        username : ubuntu
-        port : ${{secrets.REMOTE_SSH_PORT}}
-        key: ${{ secrets.REMOTE_SSH_KEY }}
-        script: | 
-          cd /home/ubuntu
-          sudo echo "test" > "FILENAME"
-      
+        ssh-private-key: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: 원격 서버로 파일 전송 및 실행
+      run: |
+        ssh ubuntu@${{ secrets.HOST }} -p ${{ secrets.REMOTE_SSH_PORT }} 'cd /home/ubuntu && echo "test" > FILENAME'

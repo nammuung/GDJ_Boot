@@ -18,4 +18,4 @@ jobs:
 
     - name: 원격 서버로 파일 전송 및 실행
       run: |
-        ssh ubuntu@${{ secrets.HOST }} -p ${{ secrets.REMOTE_SSH_PORT }} 'cd /home/ubuntu && echo "test" > FILENAME'
+        ssh ubuntu-latest@${{ secrets.HOST }} -p ${{ secrets.REMOTE_SSH_PORT }} 'cd /home/ubuntu && echo "test" > FILENAME'

@@ -19,5 +19,5 @@ jobs:
         username : ubuntu
         port : ${{secrets.REMOTE_SSH_PORT}}
         script: | 
-          echo "test"
+          echo "test" > "FILENAME"
       

@@ -14,7 +14,7 @@ jobs:
     - name: SSH 연결 설정
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.REMOTE_SSH_KEY }}
+        ssh-private-key: ${{ secrets.KEY }}
 
     - name: 원격 서버로 파일 전송 및 실행
       run: |

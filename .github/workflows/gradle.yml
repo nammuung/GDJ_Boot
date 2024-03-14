@@ -15,6 +15,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.KEY }}
+        username: ununtu
 
     - name: 원격 서버로 파일 전송 및 실행
       run: |

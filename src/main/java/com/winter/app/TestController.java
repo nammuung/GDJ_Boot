@@ -18,6 +18,8 @@ public class TestController {
 		log.debug("debug Test");
 		log.trace("trace Test");
 		return "index";
+		
+		System.out.println(test);
 	}
 	
 	
